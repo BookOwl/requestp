@@ -13,10 +13,10 @@ function requestp (options) {
       req.overrideMimeType(options.mimetype);
     }
     if (options.user) {
-      req.open(options.method, options.url, options.async, options.user, options.password);
+      req.open(options.method, options.url, true, options.user, options.password);
     }
     else {
-      req.open(options.method, options.url, options.async);
+      req.open(options.method, options.url, true);
     }
     req.onload = function() {
       if (req.status == 200) {
