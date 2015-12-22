@@ -12,3 +12,23 @@ requestp({method: "GET", url: "http://example.org/example.json"}).then(JSON.pars
   function(data) {console.log(data.key); }
 );
 ```
+
+##Reference
+You pass arguments to the requestp function through a object with the following attributes:
+
+`method`: Required. The HTTP method.
+
+`url`: Required. The url you are requesting.
+
+`headers`: Optional. An array of header objects that are used to override the headers of the request. Each header object takes the form 
+```
+{
+  header: "The header to override",
+  value:  "The new value for the header"
+}
+```
+`mimetype`: Optional. Used to override the mime type of the request.
+
+`user` and `password`: Optional. Used to authenticate the request.
+
+`body`: Optional. The body of a POST request.
