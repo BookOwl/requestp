@@ -1,0 +1,26 @@
+{
+  "name": "requestp",
+  "main": "requestp.js",
+  "description": "A simple promise based wrapper around XMLHttpRequest",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "requests",
+    "xmlhttprequest",
+    "http",
+    "promise"
+  ],
+  "authors": [
+    "BookOwl"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -13,10 +13,10 @@ function requestp (options) {
       req.overrideMimeType(options.mimetype);
     }
     if (options.user) {
-      req.open(options.method, options.url, options.async, options.user, options.password);
+      req.open(options.method, options.url, true, options.user, options.password);
     }
     else {
-      req.open(options.method, options.url, options.async);
+      req.open(options.method, options.url, true);
     }
     req.onload = function() {
       if (req.status == 200) {
@@ -37,3 +37,21 @@ function requestp (options) {
     }
   });
 };
+requestp.get = function(arg){
+  if (typeof arg === "string"){
+    return requestp({
+              method: "GET",
+              url: arg
+    })
+  } else {
+    arg.method = "GET";
+    return requestp(arg)
+  }
+}
+requestp.getJSON = function(arg){
+  return requestp.get(arg).then(JSON.parse)
+}
+requestp.post = function(arg){
+  arg.method = "POST";
+  return requestp(arg)
+}
