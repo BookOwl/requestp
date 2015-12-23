@@ -37,7 +37,6 @@ function requestp (options) {
     }
   });
 };
-<<<<<<< HEAD
 requestp.get = function(arg){
   if (typeof arg === "string"){
     return requestp({
@@ -56,5 +55,3 @@ requestp.post = function(arg){
   arg.method = "POST";
   return requestp(arg)
 }
-=======
->>>>>>> origin/master
