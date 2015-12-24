@@ -5,8 +5,8 @@ function requestp (options) {
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     if (options.headers) {
-      for (var header of options.headers){
-        req.setRequestHeader(header.header, header.value);
+      for (var key in options.headers){
+        req.setRequestHeader(key, options.headers[key]);
       }
     }
     if (options.mimetype) {
@@ -26,8 +26,8 @@ function requestp (options) {
         reject(Error(req.statusText));
       }
     };
-    req.onerror = function() {
-      reject(Error("Network Error"));
+    req.onerror = function(eStr, eUrl, eLn, eCol, eObj) {
+      reject(eObj);
     };
     if (options.body) {
       req.send(options.body);
@@ -37,21 +37,31 @@ function requestp (options) {
     }
   });
 };
-requestp.get = function(arg){
-  if (typeof arg === "string"){
-    return requestp({
-              method: "GET",
-              url: arg
-    })
-  } else {
-    arg.method = "GET";
-    return requestp(arg)
-  }
-}
-requestp.getJSON = function(arg){
-  return requestp.get(arg).then(JSON.parse)
-}
-requestp.post = function(arg){
-  arg.method = "POST";
-  return requestp(arg)
-}
+
+requestp.get = function(url, params, opts){
+    opts = opts || {};
+    opts.method = "get";
+    opts.url = url;
+    var params2 = [];
+    for(var key in params){
+        params2.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
+    }
+    if(params2.length) opts.url += "?" + params2.join("&");
+    return requestp(opts);
+};
+requestp.post = function(url, body, opts){
+    opts = opts || {};
+    opts.method = "post";
+    opts.url = url;
+    if(typeof body == "string") opts.body = body;
+    else {
+        var params2 = [];
+        for(var key in params){
+            params2.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
+        }
+        if(params2.length) opts.body = params2.join("&");
+    }
+    return requestp(opts);
+};
+
+window.requestp = requestp;
